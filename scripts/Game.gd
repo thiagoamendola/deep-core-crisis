@@ -46,8 +46,7 @@ func _ready():
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.scancode == KEY_SPACE:
-			map_index += 1
-			render_map(maps_list[map_index])
+			next_map()
 
 func render_map(map):
 	# Get a matrix representation of the map.
@@ -56,3 +55,7 @@ func render_map(map):
 	for i in range(map.SIZE.x+2):
 		for j in range(map.SIZE.y+2):
 			tile_map.set_cellv(Vector2(i,j), matrix[i][j])
+
+func next_map():
+	map_index += 1
+	render_map(maps_list[map_index])
