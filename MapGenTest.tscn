@@ -33,6 +33,7 @@ margin_left = 225.0
 margin_right = 305.0
 margin_bottom = 20.0
 text = "TEST FIRST"
+
 [connection signal="pressed" from="NextGenBtn" to="." method="_on_NextGenBtn_pressed"]
 [connection signal="pressed" from="ResetBtn" to="." method="_on_ResetBtn_pressed"]
 [connection signal="pressed" from="TESTTESTBtn" to="." method="_on_TESTTESTBtn_pressed"]

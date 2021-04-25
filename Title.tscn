@@ -13,6 +13,9 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = 42.5907
@@ -20,4 +23,8 @@ margin_top = 429.081
 margin_right = 200.591
 margin_bottom = 488.081
 text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
