@@ -45,7 +45,7 @@ func _ready():
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if event.scancode == KEY_T:
+		if event.scancode == KEY_SPACE:
 			map_index += 1
 			render_map(maps_list[map_index])
 
