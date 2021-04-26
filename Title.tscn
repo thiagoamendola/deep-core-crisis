@@ -10,12 +10,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_top = 19.799
+margin_right = 1024.0
+margin_bottom = 619.799
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = 42.5907
@@ -26,5 +24,4 @@ text = "Start Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
