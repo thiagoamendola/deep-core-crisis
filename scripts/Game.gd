@@ -78,6 +78,8 @@ func render_map(map):
 			tile_map.set_cellv(Vector2(i,j), matrix[i][j])
 	# Spawn props
 	spawn_orbs(map)
+	# Spawn player
+	spawn_player(map)
 
 func spawn_orbs(map):
 	for orb_location in map.orb_locations:
@@ -86,6 +88,8 @@ func spawn_orbs(map):
 		new_orb.position = convert_matrix_to_real_space(orb_location)
 		$OrbParent.add_child(new_orb)
 
+func spawn_player(map):
+	$Player.position = convert_matrix_to_real_space(map.entrance)
 
 func next_map():
 	map_index += 1
