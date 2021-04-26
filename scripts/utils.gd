@@ -1,4 +1,6 @@
 
+const CELL_SIZE = 32
+
 # Cell Constants
 
 const WALL_CELL = 0

@@ -11,6 +11,7 @@ static func get_map_matrix(map):
 	matrix = create_rooms_matrix(map, matrix, false)
 	matrix = create_corridors_matrix(map, matrix, false)
 	matrix = create_entrance_exit_matrix(map, matrix)
+	#<-- water
 	return matrix
 
 # Returns a full matrix map.
