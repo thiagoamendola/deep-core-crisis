@@ -66,9 +66,9 @@ func spawn_orbs(map):
 	for orb_location in map.orb_locations:
 		var new_orb = Orb.instance()
 		print(orb_location)
-		new_orb.position = Vector2(utils.CELL_SIZE/2 + orb_location.x*utils.CELL_SIZE, utils.CELL_SIZE/2 + orb_location.y*utils.CELL_SIZE)
-		new_orb.position += Vector2(utils.CELL_SIZE, utils.CELL_SIZE) # Add border cells
+		new_orb.position = convert_matrix_to_real_space(orb_location)
 		$OrbParent.add_child(new_orb)
+
 
 func next_map():
 	map_index += 1
@@ -83,3 +83,12 @@ func next_map():
 	var next_map = maps_list[map_index]
 	next_map.generate_orbs()
 	render_map(next_map)
+
+
+func convert_matrix_to_real_space(matrix_pos):
+	var real_pos = Vector2(matrix_pos.x*utils.CELL_SIZE, matrix_pos.y*utils.CELL_SIZE)
+	# Add border cells
+	real_pos += Vector2(utils.CELL_SIZE, utils.CELL_SIZE) 
+	# Go to center of cell
+	real_pos += Vector2(utils.CELL_SIZE/2, utils.CELL_SIZE/2)
+	return real_pos
