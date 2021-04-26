@@ -13,6 +13,8 @@ const MapSpawner = preload("map_spawner.gd")
 
 const Orb = preload("../Orb.tscn")
 
+const LadderSound = preload("res://audio/Ladder.wav")
+
 onready var tile_map = get_node("TileMap")
 
 var evolution_manager
@@ -73,6 +75,11 @@ func spawn_orbs(map):
 func next_map():
 	map_index += 1
 	
+	$SoundFXPlayer.stream = LadderSound
+	$SoundFXPlayer.play()
+	
+	#<-- map_index >= NUMBER_MAPS
+	
 	# Clear remaining orbs
 	
 	for orb in $OrbParent.get_children(): 
@@ -86,7 +93,8 @@ func next_map():
 
 
 func convert_matrix_to_real_space(matrix_pos):
-	var real_pos = Vector2(matrix_pos.x*utils.CELL_SIZE, matrix_pos.y*utils.CELL_SIZE)
+	var real_pos = tile_map.position
+	real_pos += Vector2(matrix_pos.x*utils.CELL_SIZE, matrix_pos.y*utils.CELL_SIZE)
 	# Add border cells
 	real_pos += Vector2(utils.CELL_SIZE, utils.CELL_SIZE) 
 	# Go to center of cell
