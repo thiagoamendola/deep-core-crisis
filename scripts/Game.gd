@@ -2,6 +2,8 @@ extends Node2D
 
 # Constants
 
+const TOTAL_SECONDS = 120.0
+const TOTAL_ORBS_FOR_VICTORY = 100.0
 const NUMBER_MAPS = 10
 const EVO_GENERATIONS_PER_MAPS = 10
 
@@ -12,9 +14,9 @@ const utils = preload("utils.gd")
 const MapSpawner = preload("map_spawner.gd")
 
 const Orb = preload("../Orb.tscn")
-
 const LadderSound = preload("res://audio/Ladder.wav")
 
+onready var global_vars = get_node("/root/GlobalVariables")
 onready var tile_map = get_node("TileMap")
 
 var evolution_manager
@@ -22,6 +24,9 @@ var map_evaluator
 var maps_list
 
 var map_index
+
+var time_count
+var collected_orbs
 
 func _ready():
 	
@@ -32,6 +37,8 @@ func _ready():
 	evolution_manager = EvolutionManager.new()
 	map_evaluator = MapEvaluator.new()
 	tile_map.get_node("Fitness").text = ""
+	time_count = TOTAL_SECONDS
+	collected_orbs = 0
 	
 	# Generate all maps for this run
 	
@@ -49,10 +56,18 @@ func _ready():
 	map_index = -1
 	next_map()
 
+func _process(delta):
+	time_count -= delta
+	#<-- show
+	if time_count <= 0.0:
+		finish_game(false)
+		set_process(false)
+
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.scancode == KEY_SPACE:
 			next_map()
+	pass
 
 func render_map(map):
 	# Get a matrix representation of the map.
@@ -78,7 +93,9 @@ func next_map():
 	$SoundFXPlayer.stream = LadderSound
 	$SoundFXPlayer.play()
 	
-	#<-- map_index >= NUMBER_MAPS
+	if map_index >= NUMBER_MAPS:
+		finish_game(true)
+		return
 	
 	# Clear remaining orbs
 	
@@ -100,3 +117,9 @@ func convert_matrix_to_real_space(matrix_pos):
 	# Go to center of cell
 	real_pos += Vector2(utils.CELL_SIZE/2, utils.CELL_SIZE/2)
 	return real_pos
+
+func finish_game(reached_core):
+	global_vars.reached_core = reached_core
+	global_vars.collected_orbs = collected_orbs
+	global_vars.remaining_time = time_count
+	get_tree().change_scene("res://Results.tscn")
