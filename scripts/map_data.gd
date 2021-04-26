@@ -15,6 +15,7 @@ const NUMBER_CORRIDORS_MEAN = 7
 const NUMBER_CORRIDORS_DEVIATION = 3
 
 const ORBS_PER_LEVEL = 14
+const ADJ_ORB_RETRIES = 10
 
 # Structs
 
@@ -111,9 +112,18 @@ func generate_orbs():
 	
 	for room in room_list:
 		var orbs_in_room = min(orbs_per_room, orbs_remaining)
-
+		var avoid_adj_orb_tries = ADJ_ORB_RETRIES
+		
 		while orbs_in_room > 0:
 			var new_orb_position = Vector2(int(rand_range(room.init_pos.x, room.init_pos.x + room.size.x)), int(rand_range(room.init_pos.y, room.init_pos.y + room.size.y)))
+
+			if avoid_adj_orb_tries > 0:
+				if (orb_locations.has(new_orb_position + Vector2(1,0)) or
+					orb_locations.has(new_orb_position + Vector2(0,1)) or
+					orb_locations.has(new_orb_position + Vector2(-1,0)) or
+					orb_locations.has(new_orb_position + Vector2(0,-1))):
+					avoid_adj_orb_tries -= 1
+					continue
 
 			if not orb_locations.has(new_orb_position) and entrance != new_orb_position and exit != new_orb_position: 
 				orb_locations.append(new_orb_position)
