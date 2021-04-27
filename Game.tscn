@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://tile_map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://audio/DeepCoreCrisis.wav" type="AudioStream" id=3]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://EndingDetector.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -20,3 +21,5 @@ autoplay = true
 bus = "Effects"
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+
+[node name="EndingDetector" parent="." instance=ExtResource( 5 )]

@@ -66,8 +66,8 @@ func _process(delta):
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.scancode == KEY_SPACE:
-			next_map()
-	pass
+#			next_map()
+			pass
 
 func render_map(map):
 	# Get a matrix representation of the map.
@@ -79,16 +79,15 @@ func render_map(map):
 	# Spawn props
 	spawn_orbs(map)
 	# Spawn player
-	spawn_player(map)
+	$Player.position = convert_matrix_to_real_space(map.entrance)
+	# Spawn ending detector
+	$EndingDetector.position = convert_matrix_to_real_space(map.exit)
 
 func spawn_orbs(map):
 	for orb_location in map.orb_locations:
 		var new_orb = Orb.instance()
 		new_orb.position = convert_matrix_to_real_space(orb_location)
 		$OrbParent.add_child(new_orb)
-
-func spawn_player(map):
-	$Player.position = convert_matrix_to_real_space(map.entrance)
 
 func next_map():
 	map_index += 1
