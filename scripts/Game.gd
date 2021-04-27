@@ -2,7 +2,7 @@ extends Node2D
 
 # Constants
 
-const TOTAL_SECONDS = 120.0
+const TOTAL_SECONDS = 60.0
 const TOTAL_ORBS_FOR_VICTORY = 100.0
 const NUMBER_MAPS = 10
 const EVO_GENERATIONS_PER_MAPS = 10
@@ -51,7 +51,7 @@ func _ready():
 		# Print fitness
 
 		maps_list.append(evolution_manager.map_array[0])
-		print(str(map_evaluator.get_fitness(evolution_manager.map_array[0])))
+#		print(str(map_evaluator.get_fitness(evolution_manager.map_array[0])))
 	
 	map_index = -1
 	next_map()
@@ -84,7 +84,6 @@ func render_map(map):
 func spawn_orbs(map):
 	for orb_location in map.orb_locations:
 		var new_orb = Orb.instance()
-		print(orb_location)
 		new_orb.position = convert_matrix_to_real_space(orb_location)
 		$OrbParent.add_child(new_orb)
 
