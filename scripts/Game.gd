@@ -2,7 +2,7 @@ extends Node2D
 
 # Constants
 
-const TOTAL_SECONDS = 60.0
+const TOTAL_SECONDS = 90.0
 const TOTAL_ORBS_FOR_VICTORY = 100.0
 const NUMBER_MAPS = 10
 const EVO_GENERATIONS_PER_MAPS = 10
@@ -58,7 +58,11 @@ func _ready():
 
 func _process(delta):
 	time_count -= delta
-	#<-- show
+	
+	$UI/TimeLabel.text = "Time: "+str(int(time_count))
+	$UI/OrbsLabel.text = "Orbs: "+str(collected_orbs)+"/"+str(TOTAL_ORBS_FOR_VICTORY)
+	$UI/MazeLabel.text = "Maze: "+str(map_index+1)+"/"+str(NUMBER_MAPS)
+	
 	if time_count <= 0.0:
 		finish_game(false)
 		set_process(false)
